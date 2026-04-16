@@ -6,6 +6,8 @@ A simple FastAPI service that classifies a first name using the `Genderize` API 
 
 - Classifies a name with `gender`, `probability`, and `sample_size`
 - Adds `is_confident` and `processed_at` fields
+- Enables CORS with `Access-Control-Allow-Origin: *`
+- Uses a reusable async HTTP client for stable multi-request handling
 - Returns consistent error responses in this format:
 
 ```json
@@ -117,4 +119,6 @@ curl -X GET "http://127.0.0.1:8000/api/classify" -H "accept: application/json"
 - Confidence is computed as:
 	- `probability >= 0.7`
 	- `sample_size >= 100`
+- Internal endpoint work is lightweight; external API time is the dominant latency.
+- The app uses connection pooling to handle concurrent requests reliably.
 
